@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Eco-Watcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f0f8ff; }
+        h1 { color: #28a745; }
+        .data-box { background: white; padding: 15px; margin: 10px; border-radius: 10px; box-shadow: 2px 2px 10px #ddd; }
+    </style>
+</head>
+<body>
+    <h1>🌱 Smart Eco-Watcher 🌱</h1>
+    <h2>Real-time Plant Health Monitoring</h2>
+    
+    <div class="data-box">
+        <h3>🌿 Soil Moisture Level</h3>
+        <p id="soil-moisture">Loading...</p>
+    </div>
+    
+    <div class="data-box">
+        <h3>☀️ Light Level</h3>
+        <p id="light-level">Loading...</p>
+    </div>
+
+    <script>
+        function updateData() {
+            fetch("https://api.example.com/sensor-data") // Replace with actual data source
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("soil-moisture").innerText = data.soil + "%";
+                document.getElementById("light-level").innerText = data.light + " lux";
+            })
+            .catch(error => console.log("Error fetching data:", error));
+        }
+        setInterval(updateData, 2000);
+    </script>
+
+    <footer>
+        <p>Made by: Yasin Abrahimi, Hamis, Abdul Rehman, Aadi</p>
+    </footer>
+</body>
+</html>
