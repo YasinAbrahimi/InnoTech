@@ -1,132 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Eco-Watcher</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-        }
-
-        #live-data {
-            background-color: #e0f7fa;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        footer {
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrightRead</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #f0f8ff;
+    }
+    h1 {
+      color: #2a4d69;
+    }
+    .alphabet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .letter {
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .letter:hover {
+      background-color: #357ABD;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Smart Eco-Watcher</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#live-data">Live Data</a></li>
-                <li><a href="#eco-tips">Eco Tips</a></li>
-            </ul>
-        </nav>
-    </header>
+  <h1>Alphabet Sound Helper</h1>
+  <p>Click a letter to hear it aloud.</p>
+  <div class="alphabet" id="alphabet"></div>
 
-    <section id="home">
-        <h2>Project Overview</h2>
-        <p>The Smart Eco-Watcher is an innovative environmental monitoring system. It uses sensors to monitor plant health, soil moisture, and sunlight levels. The system provides real-time data and sustainability tips to help you care for your plants in an eco-friendly way.</p>
-    </section>
+  <script>
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const container = document.getElementById("alphabet");
 
-    <section id="live-data">
-        <h2>Real-Time Sensor Data</h2>
-        <div id="data">
-            <p>Soil Moisture: <span id="soil-moisture">Loading...</span></p>
-            <p>Sunlight Level: <span id="sunlight-level">Loading...</span></p>
-        </div>
-        <button onclick="refreshData()">Refresh Data</button>
-    </section>
-
-    <section id="eco-tips">
-        <h2>Eco Tips for Sustainable Plant Care</h2>
-        <ul>
-            <li>Water plants only when necessary to save water.</li>
-            <li>Use natural light instead of artificial light when possible.</li>
-            <li>Compost plant waste instead of throwing it away.</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Smart Eco-Watcher. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Simulating data from the Arduino sensor
-        let soilMoisture = 60;  // Placeholder value for soil moisture
-        let sunlightLevel = 75;  // Placeholder value for sunlight level
-
-        // Function to update data on the webpage
-        function refreshData() {
-            // Simulating new sensor data
-            soilMoisture = Math.floor(Math.random() * 100);
-            sunlightLevel = Math.floor(Math.random() * 100);
-
-            // Updating the HTML with new data
-            document.getElementById('soil-moisture').textContent = soilMoisture + "%";
-            document.getElementById('sunlight-level').textContent = sunlightLevel + "%";
-        }
-
-        // Initial data load
-        refreshData();
-    </script>
+    alphabet.split("").forEach(letter => {
+      const button = document.createElement("button");
+      button.textContent = letter;
+      button.className = "letter";
+      button.onclick = () => {
+        const utterance = new SpeechSynthesisUtterance(letter);
+        utterance.lang = "en-US";
+        window.speechSynthesis.speak(utterance);
+      };
+      container.appendChild(button);
+    });
+  </script>
 </body>
 </html>
